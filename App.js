@@ -20,7 +20,7 @@ export default function App() {
     {
       nome: "Wweet child of mine",
       artista: "Guns N Rose",
-      playng: false,
+      playng: true,
       file: "",
     },
     {
@@ -49,18 +49,20 @@ export default function App() {
       {musicas.map((val) => {
         if (val.playng) {
           return (
-            <View>
-              <TouchableOpacity>
-                <Text>
+            <View key={val.nome} style={styles.table}>
+              <TouchableOpacity style={styles.btnTocando}>
+                <Text style={[styles.txtInfos, { color: "#fff" }]}>
                   <AntDesign name="play" size={15} color="#fff" /> {val.nome}
                 </Text>
-                <Text>{val.artista}</Text>
+                <Text style={[styles.txtInfos, { color: "#fff" }]}>
+                  {val.artista}
+                </Text>
               </TouchableOpacity>
             </View>
           );
         } else {
           return (
-            <View>
+            <View key={val.nome} style={styles.table}>
               <TouchableOpacity>
                 <Text>
                   <AntDesign name="play" size={15} color="#fff" /> {val.nome}
@@ -91,4 +93,10 @@ const styles = StyleSheet.create({
     width: "50%",
     color: "rgb(200,200,200)",
   },
+  btnTocando: {
+    width: "100%",
+    flexDirection: "row",
+  },
 });
+
+// Tempo da aula 12:02
