@@ -10,70 +10,202 @@ import {
 import { Audio } from "expo-av";
 import { AntDesign } from "@expo/vector-icons";
 import Header from "./components/Header";
+import Player from "./components/Player";
 
 export default function App() {
   const [audio, setAudio] = useState(null);
-  // const [] = useState()
-  // const [] = useState()
+  const [audioIndex, setAudioIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
   // const [] = useState()
   const [musicas, setMusicas] = useState([
     {
-      nome: "Wweet child of mine",
+      nome: "Weet child of mine",
       artista: "Guns N Rose",
-      playng: true,
-      file: "",
+      playng: false,
+      file: require("./musics/Weetchildofmine.mp3"),
     },
     {
       nome: "Welcome to the jungle",
       artista: "Guns N Rose",
       playng: false,
-      file: "",
+      file: require("./musics/Welcometothejungle.mp3"),
     },
     {
       nome: "This love",
       artista: "Maroon 5",
       playng: false,
-      file: "",
+      file: require("./musics/Thislove.mp3"),
+    },
+    {
+      nome: "Weet child of mine",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Weetchildofmine.mp3"),
+    },
+    {
+      nome: "Welcome to the jungle",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Welcometothejungle.mp3"),
+    },
+    {
+      nome: "This love",
+      artista: "Maroon 5",
+      playng: false,
+      file: require("./musics/Thislove.mp3"),
+    },
+    {
+      nome: "Weet child of mine",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Weetchildofmine.mp3"),
+    },
+    {
+      nome: "Welcome to the jungle",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Welcometothejungle.mp3"),
+    },
+    {
+      nome: "This love",
+      artista: "Maroon 5",
+      playng: false,
+      file: require("./musics/Thislove.mp3"),
+    },
+    {
+      nome: "Weet child of mine",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Weetchildofmine.mp3"),
+    },
+    {
+      nome: "Welcome to the jungle",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Welcometothejungle.mp3"),
+    },
+    {
+      nome: "This love",
+      artista: "Maroon 5",
+      playng: false,
+      file: require("./musics/Thislove.mp3"),
+    },
+    {
+      nome: "Weet child of mine",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Weetchildofmine.mp3"),
+    },
+    {
+      nome: "Welcome to the jungle",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Welcometothejungle.mp3"),
+    },
+    {
+      nome: "This love",
+      artista: "Maroon 5",
+      playng: false,
+      file: require("./musics/Thislove.mp3"),
+    },
+    {
+      nome: "Weet child of mine",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Weetchildofmine.mp3"),
+    },
+    {
+      nome: "Welcome to the jungle",
+      artista: "Guns N Rose",
+      playng: false,
+      file: require("./musics/Welcometothejungle.mp3"),
+    },
+    {
+      nome: "This love",
+      artista: "Maroon 5",
+      playng: false,
+      file: require("./musics/Thislove.mp3"),
     },
   ]);
+
+  const changeMusica = async (id) => {
+    let curAudio = new Audio.Sound();
+    let curFile = null;
+    let newMusics = musicas.filter((val, k) => {
+      if (id == k) {
+        musicas[k].playng = true;
+        curFile = musicas[k].file;
+      } else {
+        musicas[k].playng = false;
+      }
+      return musicas[k];
+    });
+
+    if (audio != null) {
+      audio.unloadAsync();
+    }
+
+    try {
+      await curAudio.loadAsync(curFile);
+      await curAudio.playAsync();
+    } catch (error) {
+      console.warn("Erro na hora de tocar a musica", error);
+    }
+    setAudio(curAudio);
+    setMusicas(newMusics);
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <View style={{ flex: 1 }}>
       <StatusBar hidden />
-      <Header />
+      <ScrollView style={styles.container}>
+        <Header />
 
-      <View style={styles.table}>
-        <Text style={styles.txtInfos}>Música</Text>
-        <Text style={styles.txtInfos}>Artista</Text>
-      </View>
+        <View style={styles.table}>
+          <Text style={styles.txtInfos}>Música</Text>
+          <Text style={styles.txtInfos}>Artista</Text>
+        </View>
 
-      {musicas.map((val) => {
-        if (val.playng) {
-          return (
-            <View key={val.nome} style={styles.table}>
-              <TouchableOpacity style={styles.btnTocando}>
-                <Text style={[styles.txtInfos, { color: "#fff" }]}>
-                  <AntDesign name="play" size={15} color="#fff" /> {val.nome}
-                </Text>
-                <Text style={[styles.txtInfos, { color: "#fff" }]}>
-                  {val.artista}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          );
-        } else {
-          return (
-            <View key={val.nome} style={styles.table}>
-              <TouchableOpacity>
-                <Text>
-                  <AntDesign name="play" size={15} color="#fff" /> {val.nome}
-                </Text>
-                <Text>{val.artista}</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }
-      })}
-    </ScrollView>
+        {musicas.map((val, k) => {
+          if (val.playng) {
+            return (
+              <View key={k} style={styles.table}>
+                <TouchableOpacity
+                  onPress={() => changeMusica(k)}
+                  style={styles.btnTocando}
+                >
+                  <Text style={[styles.txtInfos, styles.colorSelected]}>
+                    <AntDesign name="play" size={15} color="#1db954" />{" "}
+                    {val.nome}
+                  </Text>
+                  <Text style={[styles.txtInfos, styles.colorSelected]}>
+                    {val.artista}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          } else {
+            return (
+              <View key={k} style={styles.table}>
+                <TouchableOpacity
+                  onPress={() => changeMusica(k)}
+                  style={styles.btnTocando}
+                >
+                  <Text style={[styles.txtInfos, { color: "#fff" }]}>
+                    <AntDesign name="play" size={15} color="#fff" /> {val.nome}
+                  </Text>
+                  <Text style={[styles.txtInfos, { color: "#fff" }]}>
+                    {val.artista}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }
+        })}
+        <View style={{ paddingBottom: 100 }}></View>
+      </ScrollView>
+      <Player />
+    </View>
   );
 }
 
@@ -96,6 +228,10 @@ const styles = StyleSheet.create({
   btnTocando: {
     width: "100%",
     flexDirection: "row",
+  },
+  // Estilo Cor selecionado
+  colorSelected: {
+    color: "#1db954",
   },
 });
 
