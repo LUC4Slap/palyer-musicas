@@ -16,6 +16,7 @@ export default function App() {
   const [audio, setAudio] = useState(null);
   const [audioIndex, setAudioIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [nomeMusica, setNomeMusica] = useState("");
   // const [] = useState()
   const [musicas, setMusicas] = useState([
     {
@@ -37,94 +38,12 @@ export default function App() {
       file: require("./musics/Thislove.mp3"),
     },
     {
-      nome: "Weet child of mine",
-      artista: "Guns N Rose",
+      nome: "Sound Helix Song 1",
+      artista: "Sound Helix",
       playng: false,
-      file: require("./musics/Weetchildofmine.mp3"),
-    },
-    {
-      nome: "Welcome to the jungle",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Welcometothejungle.mp3"),
-    },
-    {
-      nome: "This love",
-      artista: "Maroon 5",
-      playng: false,
-      file: require("./musics/Thislove.mp3"),
-    },
-    {
-      nome: "Weet child of mine",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Weetchildofmine.mp3"),
-    },
-    {
-      nome: "Welcome to the jungle",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Welcometothejungle.mp3"),
-    },
-    {
-      nome: "This love",
-      artista: "Maroon 5",
-      playng: false,
-      file: require("./musics/Thislove.mp3"),
-    },
-    {
-      nome: "Weet child of mine",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Weetchildofmine.mp3"),
-    },
-    {
-      nome: "Welcome to the jungle",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Welcometothejungle.mp3"),
-    },
-    {
-      nome: "This love",
-      artista: "Maroon 5",
-      playng: false,
-      file: require("./musics/Thislove.mp3"),
-    },
-    {
-      nome: "Weet child of mine",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Weetchildofmine.mp3"),
-    },
-    {
-      nome: "Welcome to the jungle",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Welcometothejungle.mp3"),
-    },
-    {
-      nome: "This love",
-      artista: "Maroon 5",
-      playng: false,
-      file: require("./musics/Thislove.mp3"),
-    },
-    {
-      nome: "Weet child of mine",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Weetchildofmine.mp3"),
-    },
-    {
-      nome: "Welcome to the jungle",
-      artista: "Guns N Rose",
-      playng: false,
-      file: require("./musics/Welcometothejungle.mp3"),
-    },
-    {
-      nome: "This love",
-      artista: "Maroon 5",
-      playng: false,
-      file: require("./musics/Thislove.mp3"),
+      file: {
+        uri: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      },
     },
   ]);
 
@@ -135,6 +54,9 @@ export default function App() {
       if (id == k) {
         musicas[k].playng = true;
         curFile = musicas[k].file;
+        setNomeMusica(musicas[k].nome);
+        setPlaying(true);
+        setAudioIndex(id);
       } else {
         musicas[k].playng = false;
       }
@@ -204,7 +126,18 @@ export default function App() {
         })}
         <View style={{ paddingBottom: 100 }}></View>
       </ScrollView>
-      <Player />
+      <Player
+        playing={playing}
+        setPlaying={setPlaying}
+        audioIndex={audioIndex}
+        setAudioIndex={setAudioIndex}
+        musicas={musicas}
+        setMusicas={setMusicas}
+        audio={audio}
+        setAudio={setAudio}
+        nomeMusica={nomeMusica}
+        setNomeMusica={setNomeMusica}
+      />
     </View>
   );
 }
